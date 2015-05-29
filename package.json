@@ -1,0 +1,17 @@
+{
+  "name": "sloc-for-jenkins",
+  "version": "0.0.0",
+  "description": "uses sloc to count lines of code and converts them into the format expected by the sloccount Jenkins plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "linecount",
+    "jenkins",
+    "sloc",
+    "sloccount"
+  ],
+  "author": "Charles Hymans",
+  "license": "GNUGPLv3"
+}
