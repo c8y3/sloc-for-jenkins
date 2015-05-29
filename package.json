@@ -13,5 +13,8 @@
     "sloccount"
   ],
   "author": "Charles Hymans",
-  "license": "GNUGPLv3"
+  "license": "GNUGPLv3",
+  "dependencies": {
+    "sloc": "~0.1.9"
+  }
 }
