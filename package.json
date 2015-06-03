@@ -1,7 +1,7 @@
 {
   "name": "sloc-for-jenkins",
   "version": "0.0.1",
-  "description": "uses sloc to count lines of code and converts them into the format expected by the sloccount Jenkins plugin",
+  "description": "Counts lines of JavaScript code and outputs the result into the format expected by the sloccount Jenkins plugin",
   "bin": {
     "sloc-for-jenkins": "bin/sloc-for-jenkins"
   },
