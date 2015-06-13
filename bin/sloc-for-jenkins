@@ -42,9 +42,4 @@ stream.on('data', function(entry) {
         fs.writeSync(outputFile, result);
     });
 });
-/*
-, function() {
-    console.log('Here');
-}
-*/
 
