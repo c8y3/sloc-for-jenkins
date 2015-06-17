@@ -25,7 +25,6 @@ var directoryPath = commander.args[0];
 var extension = 'js';
 var outputFile = fs.openSync(outputFileName, 'w');
 var stream = readdirp({ root: directoryPath, fileFilter: '*.' + extension });
-var result = '';
 stream.on('data', function(entry) {
     fs.readFile(entry.fullPath, 'utf8', function(error, content) {
         if (error) {
@@ -38,8 +37,8 @@ stream.on('data', function(entry) {
         var directoryName = path.dirname(filePath);
         if (directoryName === '.') directoryName = '';
         var namespace = directoryName.replace(new RegExp('/', 'g'), '.');
-        result += lineCount + '\t' + extension + '\t' + namespace + '\t' + filePath + '\n';
-        fs.writeSync(outputFile, result);
+        var fileResult = lineCount + '\t' + extension + '\t' + namespace + '\t' + filePath + '\n';
+        fs.writeSync(outputFile, fileResult);
     });
 });
 
