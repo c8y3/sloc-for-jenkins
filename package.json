@@ -7,7 +7,7 @@
     "bin"
   ],
   "scripts": {
-    "clean": "rm -rf *~",
+    "clean": "find . -name \"*~\" -delete && rm -rf lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
