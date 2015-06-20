@@ -2,9 +2,10 @@
   "name": "sloc-for-jenkins",
   "version": "0.0.3",
   "description": "Counts lines of JavaScript code and outputs the result into the format expected by the sloccount Jenkins plugin",
-  "bin": {
-    "sloc-for-jenkins": "bin/sloc-for-jenkins"
-  },
+  "bin": "bin/sloc-for-jenkins",
+  "files": [
+    "bin"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
