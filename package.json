@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "clean": "find . -name \"*~\" -delete && rm -rf lib",
+    "prepublish": "rm -rf lib && cp -r src lib; exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
