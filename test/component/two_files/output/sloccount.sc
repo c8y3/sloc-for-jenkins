@@ -1,2 +1,2 @@
-0	js		titi.js
-0	js		toto.js
+0	js	.	titi.js
+0	js	.	toto.js
