@@ -1,11 +1,10 @@
 BINARY_DIRECTORY=bin
 BINARY=$(BINARY_DIRECTORY)/sloc-for-jenkins
+COMPONENT_TEST_DIRECTORY=test/component
 RESULTS_DIRECTORY=results
-COMPONENT_TEST_DIRECTORY=$(RESULTS_DIRECTORY)/test/component
+COMPONENT_TEST_RESULTS_DIRECTORY=$(RESULTS_DIRECTORY)/$(COMPONENT_TEST_DIRECTORY)
 
-.PHONY: package test clean
-
-package:
+$(BINARY):
 	mkdir -p $(BINARY_DIRECTORY)
 	> $(BINARY)
 	cat src/shebang >> $(BINARY)
@@ -14,13 +13,17 @@ package:
 	cat src/main.js >> $(BINARY)
 	chmod +x $(BINARY)
 
-test:
-	mkdir -p $(COMPONENT_TEST_DIRECTORY)/one_file/output
-	$(BINARY) test/component/one_file/input/ -o $(COMPONENT_TEST_DIRECTORY)/one_file/output/sloccount.sc
-	diff test/component/one_file/output/sloccount.sc $(COMPONENT_TEST_DIRECTORY)/one_file/output/sloccount.sc
-	mkdir -p $(COMPONENT_TEST_DIRECTORY)/component/two_files/output
-	$(BINARY) test/component/two_files/input/ -o $(COMPONENT_TEST_DIRECTORY)/component/two_files/output/sloccount.sc
-	diff test/component/two_files/output/sloccount.sc $(COMPONENT_TEST_DIRECTORY)/component/two_files/output/sloccount.sc
+.PHONY: package test clean
+
+package: $(BINARY)
+
+test: $(BINARY)
+	mkdir -p $(COMPONENT_TEST_RESULTS_DIRECTORY)/one_file/output
+	$(BINARY) $(COMPONENT_TEST_DIRECTORY)/one_file/input/ -o $(COMPONENT_TEST_RESULTS_DIRECTORY)/one_file/output/sloccount.sc
+	diff $(COMPONENT_TEST_DIRECTORY)/one_file/output/sloccount.sc $(COMPONENT_TEST_RESULTS_DIRECTORY)/one_file/output/sloccount.sc
+	mkdir -p $(COMPONENT_TEST_RESULTS_DIRECTORY)/two_files/output
+	$(BINARY) $(COMPONENT_TEST_DIRECTORY)/two_files/input/ -o $(COMPONENT_TEST_RESULTS_DIRECTORY)/two_files/output/sloccount.sc
+	diff $(COMPONENT_TEST_DIRECTORY)/two_files/output/sloccount.sc $(COMPONENT_TEST_RESULTS_DIRECTORY)/two_files/output/sloccount.sc
 
 clean:
 	rm -rf $(BINARY_DIRECTORY) $(RESULTS_DIRECTORY)
