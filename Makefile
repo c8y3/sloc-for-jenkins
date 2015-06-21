@@ -7,13 +7,14 @@ RESULTS_DIRECTORY=results
 COMPONENT_TEST_RESULTS_DIRECTORY=$(RESULTS_DIRECTORY)/$(COMPONENT_TEST_DIRECTORY)
 
 $(BINARY):
-	$(MKDIR) $(BINARY_DIRECTORY)
-	> $(BINARY)
-	cat src/shebang >> $(BINARY)
-	cat src/index.js >> $(BINARY)
-	find src/sloc_for_jenkins -type f -exec cat {} >> $(BINARY) \;
-	cat src/main.js >> $(BINARY)
-	chmod +x $(BINARY)
+	@ echo "Preparing $(BINARY)..."
+	@ $(MKDIR) $(BINARY_DIRECTORY)
+	@ > $(BINARY)
+	@ cat src/shebang >> $(BINARY)
+	@ cat src/index.js >> $(BINARY)
+	@ find src/sloc_for_jenkins -type f -exec cat {} >> $(BINARY) \;
+	@ cat src/main.js >> $(BINARY)
+	@ chmod +x $(BINARY)
 
 .PHONY: package test clean
 
