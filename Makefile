@@ -1,9 +1,17 @@
+BINARY_DIRECTORY=bin
+BINARY=$(BINARY_DIRECTORY)/sloc-for-jenkins
+
+.PHONY: package clean
+
 package:
-	mkdir -p lib
-	cp src/index.js lib/sloc-for-jenkins
-	find src/sloc_for_jenkins -type f -exec cat {} >> lib/sloc-for-jenkins \;
+	mkdir -p $(BINARY_DIRECTORY)
+	> $(BINARY)
+	cat src/shebang >> $(BINARY)
+	cat src/index.js >> $(BINARY)
+	find src/sloc_for_jenkins -type f -exec cat {} >> $(BINARY) \;
+	cat src/main.js >> $(BINARY)
 
 clean:
-	rm -rf lib
+	rm -rf $(BINARY_DIRECTORY)
 	find . -name "*~" -delete
 
