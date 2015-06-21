@@ -10,6 +10,7 @@ package:
 	cat src/index.js >> $(BINARY)
 	find src/sloc_for_jenkins -type f -exec cat {} >> $(BINARY) \;
 	cat src/main.js >> $(BINARY)
+	chmod +x $(BINARY)
 
 clean:
 	rm -rf $(BINARY_DIRECTORY)
