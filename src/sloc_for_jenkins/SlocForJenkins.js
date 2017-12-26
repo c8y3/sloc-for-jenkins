@@ -1,21 +1,8 @@
+var Stargs = require('stargs');
+
 sloc_for_jenkins.SlocForJenkins = function(commander, sloc, fs, readdirp, path, version) {
-    var self = {};
-    self.start = function() {
-        commander
-            .version(version)
-            .usage('directory [options]')
-            .option('-o, --output [filepath]', 'path to output file, default value is sloccount.sc')
-            .parse(process.argv);
 
-        var outputFileName = 'sloccount.sc';
-        if (commander.output !== undefined) outputFileName = commander.output;
-        if (commander.args.length !== 1) {
-            console.log('Missing directory name');
-            commander.help();
-        }
-
-        var directoryPath = commander.args[0];
-
+    function count(directoryPath, outputFileName) {
         var extension = 'js';
         var outputFile = fs.openSync(outputFileName, 'w');
         var stream = readdirp({ root: directoryPath, fileFilter: '*.' + extension });
@@ -34,6 +21,47 @@ sloc_for_jenkins.SlocForJenkins = function(commander, sloc, fs, readdirp, path, 
                 fs.writeSync(outputFile, fileResult);
             });
         });
+    }
+
+    var self = {};
+
+    self.start = function() {
+        var parser = Stargs({
+            args: 'directory',
+            options: {
+                version: {
+                    short: 'V',
+                    description: 'output the version number'
+                },
+                output: {
+                    short: 'o',
+                    type: 'string',
+                    description: 'path to output file, default value is sloccount.sc'
+                }
+            }
+        });
+        try {
+            const result = parser.parse(process.argv);
+            // TODO implement a version option in Stargs (see how to output several things on a module)
+            if (result.version) {
+                console.log(version);
+                return;
+            }
+            // TODO implement a default value in Stargs
+            var outputFileName = result.output;
+            if (outputFileName === undefined) {
+                outputFileName = 'sloccount.sc';
+            }
+            // TODO add boolean multiple by default to false in Stargs (breaks API)
+            if (result.args.length !== 1) {
+                console.log('Missing directory name');
+                // TODO should output the help here...
+                return;
+            }
+            count(result.args[0], outputFileName);
+        } catch (e) {
+            console.log(e.message);
+        }
     };
 
     return self;
